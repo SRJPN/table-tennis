@@ -1,25 +1,22 @@
-const TABLE_START_TIME = 9;
-const TABLE_END_TIME = 18;
-
 var HoursPlayed = (numberOfPlayers, playerTimings) => {
-    var numberOfHoursSingles = 0;
-    var numberOfHoursDouble = 0;
-
-
-    for (var i = TABLE_START_TIME; i < TABLE_END_TIME; i++) {
-        var numberOfPLayersAvailable = playerTimings.reduce((agg, [startTime, endTime]) => {
-            if (i >= startTime && i < endTime) {
-                return agg + 1;
-            }
+    var playersAvailableAtHours =
+        playerTimings.reduce((agg, [startTime, endTime]) => {
+            GenerateValuesBetween(startTime, endTime).forEach(x => {agg[x] = agg[x] ? agg[x] + 1 : 1})
             return agg;
-        }, 0);
+        }, {});
 
-        if (numberOfPLayersAvailable > 1 && numberOfPLayersAvailable < 4)
-            numberOfHoursSingles++
-        if (numberOfPLayersAvailable >= 4)
-            numberOfHoursDouble++
-    }
-    return [numberOfHoursSingles, numberOfHoursDouble]
+    var result = Object.values(playersAvailableAtHours).reduce(([numberOfHoursSingles, numberOfHoursDoubles], x) => {
+        if (1 < x && x < 4)
+            return [numberOfHoursSingles + 1, numberOfHoursDoubles]
+        if (4 <= x)
+            return [numberOfHoursSingles, numberOfHoursDoubles + 1]
+        return [numberOfHoursSingles, numberOfHoursDoubles]
+    }, [0, 0])
+    return result;
 }
 
 exports.HoursPlayed = HoursPlayed;
+
+function GenerateValuesBetween(startTime, endTime) {
+    return Array.from({ length: endTime - startTime }, (v, k) => k + startTime);
+}
