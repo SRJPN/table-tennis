@@ -1,0 +1,15 @@
+{
+  "name": "table-tennis",
+  "version": "1.0.0",
+  "description": "The engineer love playing table tennis and there is only one table available. \t\t\t\t\t\t\t\t\t\t Given the engineer's availability to play table tennis, we would like to determine the number of hours where they will be playing singles / doubles.\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t ## Condition:",
+  "main": "table_tennis.js",
+  "scripts": {
+    "test": "mocha *.test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^9.2.0"
+  }
+}
